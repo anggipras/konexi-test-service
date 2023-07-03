@@ -14,18 +14,25 @@ Prerequisites
 - Open a terminal or command prompt on your local machine.
 - Use the following command to connect to your EC2 instance (replace your-ec2-instance-public-ip and /path/to/your/keypair.pem/ppk with the appropriate values):
 
-  ```ssh -i /path/to/your/keypair.pem ec2-user@your-ec2-instance-public-ip```
+  ```
+  ssh -i /path/to/your/keypair.pem ec2-user@your-ec2-instance-public-ip
+  ```
 
 ### Step 2: Update NodeJS app github repo
 - Change to the directory where your app is located:
 
-  ```cd /etc/yum.repos.d/konexi-test-service```
+  ```
+  cd /etc/yum.repos.d/konexi-test-service
+  ```
 
 - Git fetch and pull latest update of nodejs app (master branch)
 
 ### Step 3: Start the Node.js App
 - Start your Node.js app using nohup and forever:
-  ```nohup forever start index.js &```
+  
+  ```
+  nohup forever start index.js &
+  ```
 
 Your app is now running in the background on the EC2 instance.
 
@@ -33,7 +40,9 @@ Your app is now running in the background on the EC2 instance.
 Open a web browser and enter the public IP or elastic IP address followed by the port or domain to access your Node.js app.
 This project runs in:
 
-```http://18.139.116.43:5000/```
+```
+http://18.139.116.43:5000/
+```
 
 That's it! Your Node.js app is now deployed on an AWS EC2 instance and accessible from anywhere.
 
@@ -54,49 +63,65 @@ If you encounter any issues during the deployment process, please refer to the f
 1. Open a terminal or command prompt on your local machine.
 2. Use the following command to connect to your EC2 instance (replace your-ec2-instance-public-ip and /path/to/your/keypair.pem with the appropriate values):
 
-   ```ssh -i /path/to/your/keypair.pem ec2-user@your-ec2-instance-public-ip```
+   ```
+   ssh -i /path/to/your/keypair.pem ec2-user@your-ec2-instance-public-ip
+   ```
 
 # Step 3: Set up the Environment on the EC2 Instance
 - Install Node.js and other dependencies on the EC2 instance:
 
-  ```sudo yum update -y
+  ```
+  sudo yum update -y
   sudo su
   curl -sL https://rpm.nodesource.com/setup_16.x | sudo -E bash -
   sudo yum install -y nodejs
-  sudo yum install -y git```
+  sudo yum install -y git
+  ```
 
 # Step 4: Set up Mongodb on AWS EC2 Instance
 - Change to the directory where your app is located:
 
-  ```cd /etc/yum.repos.d/
-  nano mongodb-org-6.0.repo```
+  ```
+  cd /etc/yum.repos.d/
+  nano mongodb-org-6.0.repo
+  ```
 
 - Copy this content inside:
-- 
-  ```[mongodb-org-6.0]
+  
+  ```
+  [mongodb-org-6.0]
   name=MongoDB Repository
   baseurl=https://repo.mongodb.org/yum/amazon/2/mongodb-org/6.0/x86_64/
   gpgcheck=1
   enabled=1
-  gpgkey=https://www.mongodb.org/static/pgp/server-6.0.asc```
+  gpgkey=https://www.mongodb.org/static/pgp/server-6.0.asc
+  ```
 
 - Install mongodb-org dependency
 - 
-  ```sudo yum install -y mongodb-org```
+  ```
+  sudo yum install -y mongodb-org
+  ```
 
 - Start mongodb service
-- 
-  ```sudo service mongod start```
+  
+  ```
+  sudo service mongod start
+  ```
 
 # Step 5: Start the Node.js App
 - Direct to nodejs project
   
-  ```cd /konexi-test-service
-  npm install```
+  ```
+  cd /konexi-test-service
+  npm install
+  ```
 
 - Start your Node.js app using nohup and forever:
   
-  ```nohup forever start your-app.js &```
+  ```
+  nohup forever start your-app.js &
+  ```
 
 - Your app is now running in the background on the EC2 instance.
 
