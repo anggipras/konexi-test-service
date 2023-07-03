@@ -103,7 +103,6 @@ const updateProfile = async (req, res) => {
     // If a profile picture is uploaded, upload it to AWS S3
     if (req.file) {
       const fileContent = req.file.buffer;
-      console.log("reqfile", req.file);
 
       // Set the parameters for S3 upload
       const params = {
@@ -111,32 +110,27 @@ const updateProfile = async (req, res) => {
         Key: `${user._id}/${req.file.originalname}`,
         Body: fileContent,
       };
-      console.log("params", params);
 
-      // // Upload the file to AWS S3
-      // s3.upload(params, async (err, data) => {
-      //   if (err) {
-      //     console.error(err);
-      //   } else {
-      //     console.log(`File uploaded successfully. File URL: ${data.Location}`);
-      //     // Save the file URL or perform other operations with the uploaded file
+      // Upload the file to AWS S3
+      s3.upload(params, async (err, data) => {
+        if (err) {
+          res.status(500).json({ message: err });
+        } else {
+          console.log(`File uploaded successfully. File URL: ${data.Location}`);
+          // Save the file URL or perform other operations with the uploaded file
 
-      //     // Get the URL of the uploaded file
-      //     const imageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${params.Key}`;
-      //     console.log("imageUrl", imageUrl);
+          // Get the URL of the uploaded file
+          const imageUrl = `https://${process.env.AWS_BUCKET_NAME}.s3.${process.env.AWS_REGION}.amazonaws.com/${params.Key}`;
 
-      //     // Save the image URL in the user's profile_picture field
-      //     user.profile_picture = imageUrl;
-      //     // Save the updated user profile
-      //     await user.save();
+          // Save the image URL in the user's profile_picture field
+          user.profile_picture = imageUrl;
+          await user.save();
 
-      //     res.status(200).json({ message: "Profile updated successfully" });
-      //   }
-      // });
+          res.status(200).json({ message: "Profile updated successfully" });
+        }
+      });
     } else {
-      // Save the updated user profile
       await user.save();
-
       res.status(200).json({ message: "Profile updated successfully" });
     }
   } catch (error) {
