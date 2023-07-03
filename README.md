@@ -9,7 +9,7 @@ Follow these steps to deploy your Node.js app on an AWS EC2 instance.
 Prerequisites
 - An AWS account with access to the EC2 service.
 - Basic knowledge of using SSH.
-- 
+
 ### Step 1: Connect to your EC2 Instance
 1. Open a terminal or command prompt on your local machine.
 Use the following command to connect to your EC2 instance (replace your-ec2-instance-public-ip and /path/to/your/keypair.pem/ppk with the appropriate values):
