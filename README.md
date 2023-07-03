@@ -93,7 +93,7 @@ nohup forever start your-app.js &
 
 Your app is now running in the background on the EC2 instance.
 
-Step 6: Access your App
+# Step 6: Access your App
 Assign a public IP or elastic IP to your EC2 instance in the AWS console (refer to AWS documentation for instructions).
 
 Open a web browser and enter the public IP or elastic IP address followed by the port or domain to access your Node.js app.
